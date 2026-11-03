@@ -1,0 +1,5 @@
+Processing request of type ListToolsRequest
+Processing request of type CallToolRequest
+Initialized: ck3mcp
+Tools: bind_game, emergency_stop, execute_action, get_game_state, get_run_status, screenshot, verify_action, verify_task
+Unbound status access correctly rejected; MCP smoke OK

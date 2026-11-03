@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ck3mcp"
+version = "0.4.4"
+description = "CK3MCP: Windows visual AI agent and MCP server for Crusader Kings III (CK3)"
+readme = "README.md"
+keywords = ["ck3mcp", "ck3", "crusader-kings-iii", "mcp", "ai-agent", "computer-use", "windows"]
+requires-python = ">=3.12"
+dependencies = ["mss>=10,<11", "httpx>=0.28,<0.29", "mcp>=1.12,<2", "psutil>=6,<8", "Pillow>=11,<13"]
+
+[project.scripts]
+ck3-agent = "ck3mcp.cli:main"
+ck3-mcp = "ck3mcp.server:main"
+
+[project.urls]
+Repository = "https://github.com/as1yx/ck3mcp"
+Issues = "https://github.com/as1yx/ck3mcp/issues"
+
+[tool.setuptools.packages.find]
+include = ["ck3mcp*"]

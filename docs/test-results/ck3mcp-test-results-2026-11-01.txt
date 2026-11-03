@@ -1,0 +1,22 @@
+test_budget_group_atomic (__main__.Regression.test_budget_group_atomic) ... ok
+test_failed_write_preserves_input_objects (__main__.Regression.test_failed_write_preserves_input_objects) ... ok
+test_import_server (__main__.Regression.test_import_server) ... ok
+test_journal_restart_and_final (__main__.Regression.test_journal_restart_and_final) ... ok
+test_model_payload_failure_refunds (__main__.Regression.test_model_payload_failure_refunds) ... ok
+test_progress_new_people_vs_stall (__main__.Regression.test_progress_new_people_vs_stall) ... ok
+test_replan_limit_and_reset (__main__.Regression.test_replan_limit_and_reset) ... ok
+test_reservation_log_failure_rolls_back (__main__.Regression.test_reservation_log_failure_rolls_back) ... ok
+test_runner_ctrl_c (__main__.Regression.test_runner_ctrl_c) ... ok
+test_runner_final_interrupt_blocks_restart (__main__.Regression.test_runner_final_interrupt_blocks_restart) ... ok
+test_runner_final_mismatch_blocks_restart (__main__.Regression.test_runner_final_mismatch_blocks_restart) ... ok
+test_runner_last_step_final (__main__.Regression.test_runner_last_step_final) ... ok
+test_runner_replan_does_not_use_step (__main__.Regression.test_runner_replan_does_not_use_step) ... ok
+test_stop_log_failure_does_not_skip_cleanup (__main__.Regression.test_stop_log_failure_does_not_skip_cleanup) ... ok
+test_stop_refunds_only_unconsumed (__main__.Regression.test_stop_refunds_only_unconsumed) ... ok
+test_syntax_all_modules (__main__.Regression.test_syntax_all_modules) ... ok
+test_wrong_target_and_missing_facts (__main__.Regression.test_wrong_target_and_missing_facts) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 7.846s
+
+OK

@@ -1,0 +1,19 @@
+{
+  "process_name": "ck3.exe",
+  "model": "REPLACE_WITH_VISION_MODEL_ID",
+  "base_url": "https://api.openai.com/v1",
+  "api_key_env": "CK3_API_KEY",
+  "request_timeout_seconds": 45,
+  "max_runtime_seconds": 1800,
+  "max_calls": 100,
+  "max_tokens": 100000,
+  "max_output_tokens": 1200,
+  "input_reserve_tokens": 16000,
+  "max_steps": 40,
+  "observation_ttl_seconds": 15,
+  "max_wait_seconds": 2,
+  "max_replans": 3,
+  "scene_difference_limit": 0.008,
+  "task": "在当前存档中任命一个合适的空缺内阁职位。不要更换已有任职者。",
+  "run_directory": "runs"
+}
