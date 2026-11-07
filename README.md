@@ -78,6 +78,8 @@ Outcomes are `success`, `failed`, or `not_executed`. Reconciliation records a hu
 
 ### MCP integration
 
+For DeepSeek Harness, use the English-first bilingual [player instructions](agent.md) and [Cordis patch example](harness.cordis.example.yml). The patch explicitly forwards `CK3_API_KEY`; Harness otherwise filters credential environment variables from MCP children. Enable image input and attachment support in Harness. Live Harness integration remains unverified.
+
 Start the local stdio server from the project directory:
 
 ```powershell
@@ -175,6 +177,8 @@ CK3MCP is an independent project and is not affiliated with or endorsed by Parad
 结论可以是 `success`、`failed` 或 `not_executed`。命令只记录人工结论，不检查游戏，也不重放动作；不要删除数据库绕过未确认记录。
 
 ### MCP 使用
+
+DeepSeek Harness 用户请使用英文在前的双语[游玩指令 agent.md](agent.md)和[Cordis 配置示例](harness.cordis.example.yml)。示例显式传入 `CK3_API_KEY`，否则 Harness 会过滤 MCP 子进程的凭据环境变量。Harness 还需支持图片输入并启用附件；真实 Harness 接入尚待验证。
 
 从项目目录启动本地 stdio 服务：
 

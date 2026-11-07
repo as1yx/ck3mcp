@@ -1,5 +1,15 @@
 # CK3MCP validation / 验证状态
 
+## 2026-11-07 Harness instructions / Harness 使用说明检查
+
+Reran all 18 offline regression tests (2.843 seconds) and the real MCP stdio smoke test: both passed. Checked the player instructions against the server signatures, council stages, screenshot lifetime, and action restrictions. The Harness patch follows its official MCP client and Cordis overlay documentation, including explicit credential forwarding. No runtime code changed; version remains 0.4.5.
+
+No `CK3_API_KEY` was configured in the checked process or user environment, and this checkout had no local `config.json`. No live model request or game input was performed. Harness itself and its image attachment delivery were not exercised; these documents do not establish end-to-end compatibility.
+
+重新执行 18 项离线回归测试（2.843 秒）及真实 MCP stdio 冒烟测试，均通过。游玩说明已对照工具参数、任务阶段、截图时效和动作限制；Harness 配置按官方 MCP 与 Cordis 文档编写，包含密钥显式传递。本次未修改运行时代码，版本保持 0.4.5。
+
+检查时进程与用户环境未配置 `CK3_API_KEY`，本工作副本没有本地 `config.json`。未调用真实模型或执行游戏输入，也未在 Harness 内验证图片传递，因此不能宣布端到端兼容或任命验收完成。
+
 ## 0.4.5 DeepSeek adapter / DeepSeek 适配验证
 
 All 18 offline regression tests and the MCP stdio smoke test passed. The new test uses a mock HTTP transport to check the DeepSeek and OpenAI screenshot requests, JSON responses, and token accounting. Live provider calls and game operation are pending.

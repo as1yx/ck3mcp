@@ -1,3 +1,10 @@
+# Harness player guide — 2026-11-07 / Harness 游玩说明
+
+- Added English-first bilingual `agent.md` and a Cordis MCP patch example with explicit API-key forwarding. Added README links and ignored the local patch copy.
+- Reran 18 offline tests and the MCP smoke test successfully. Harness, live DeepSeek requests, and game appointments remain unverified; runtime version stays 0.4.5.
+- 新增英文在前的双语 `agent.md`、显式传入密钥的 Harness MCP 配置、README 入口和本地配置忽略规则。
+- 18 项离线测试与 MCP 冒烟测试再次通过；真实 Harness、DeepSeek 调用与游戏任命尚未验收，运行版本保持 0.4.5。
+
 # 0.4.5 — DeepSeek support / DeepSeek 适配
 
 - Added a `deepseek-flash` configuration example. Requests to the official DeepSeek host use `max_tokens` and disable thinking for short JSON decisions. The CLI and MCP server share this behavior.

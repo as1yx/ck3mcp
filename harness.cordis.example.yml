@@ -1,0 +1,17 @@
+# Replace all C:/CK3MCP paths with the SAME installed DeepSeek-branch checkout.
+# Launch Harness with CK3_API_KEY already present in its environment.
+# This is a Cordis patch, not a generic mcpServers JSON configuration.
+- insert:
+    - id: mcp-ck3
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: ck3
+        transport: stdio
+        command: 'C:/CK3MCP/.venv/Scripts/ck3-mcp.exe'
+        args: ['--config', 'C:/CK3MCP/config.json']
+        cwd: 'C:/CK3MCP'
+        env:
+          CK3_API_KEY: !!js process.env.CK3_API_KEY
+        toolCallTimeoutMs: 120000
+        reconnect:
+          enabled: false
