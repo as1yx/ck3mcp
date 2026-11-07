@@ -1,3 +1,10 @@
+# 0.4.5 — DeepSeek support / DeepSeek 适配
+
+- Added a `deepseek-flash` configuration example. Requests to the official DeepSeek host use `max_tokens` and disable thinking for short JSON decisions. The CLI and MCP server share this behavior.
+- Passed 18 offline regression tests and the MCP stdio smoke test. Live DeepSeek calls and game operation still need validation.
+- 新增 `deepseek-flash` 配置示例。请求 DeepSeek 官方地址时使用 `max_tokens` 并关闭思考模式，供 CLI 和 MCP 生成简短的 JSON 动作。
+- 18 项离线测试与 MCP stdio 冒烟测试通过。真实 DeepSeek API 和游戏操作仍待实测。
+
 # Publication documentation — 2026-11-03 / 发布文档
 
 - English-first bilingual README, CK3MCP project metadata, and portable offline test scripts.

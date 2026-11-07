@@ -1,5 +1,11 @@
 # CK3MCP validation / 验证状态
 
+## 0.4.5 DeepSeek adapter / DeepSeek 适配验证
+
+All 18 offline regression tests and the MCP stdio smoke test passed. The new test uses a mock HTTP transport to check the DeepSeek and OpenAI screenshot requests, JSON responses, and token accounting. Live provider calls and game operation are pending.
+
+18 项离线回归测试和 MCP stdio 冒烟测试通过。新增测试通过模拟 HTTP 请求核对 DeepSeek 和 OpenAI 的截图请求、JSON 响应与 Token 结算。真实模型调用和游戏操作仍待实测。
+
 ## English
 
 Recorded on 2026-11-01, with publication documentation prepared on 2026-11-03. Version: 0.4.4.

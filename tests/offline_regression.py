@@ -8,6 +8,9 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+import httpx
+from PIL import Image
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(ROOT))
@@ -128,6 +131,50 @@ class Regression(unittest.TestCase):
         with patch.object(model, '_payload', side_effect=OSError()):
             with self.assertRaises(OSError): model.ask('x', [], lease)
         self.assertEqual((self.s.calls, self.s.tokens, self.s.leases), (0, 0, {}))
+
+    def test_vision_requests_use_provider_token_limit(self):
+        screenshot = self.s.path / 'screen.png'
+        Image.new('RGB', (4, 3)).save(screenshot)
+        observation = dict(screenshot=screenshot, observation_id='test', width=4, height=3)
+        deepseek = Config.load(ROOT / 'config.deepseek.example.json')
+        requests = []
+        client = httpx.Client
+
+        def respond(request):
+            requests.append(request)
+            return httpx.Response(200, json={
+                'choices': [{'message': {'content': '{"decision":"stop"}'}}],
+                'usage': {'total_tokens': 42},
+            })
+
+        cases = (
+            (deepseek.base_url, deepseek.model, 'max_tokens', {'type': 'disabled'}),
+            ('https://api.openai.com/v1', 'offline-test', 'max_completion_tokens', None),
+        )
+        for url, model_id, limit_key, thinking in cases:
+            with self.subTest(url=url):
+                self.s.cfg.base_url = url
+                self.s.cfg.model = model_id
+                self.s.cfg.max_output_tokens = 321
+                with patch.dict(os.environ, {'CK3_API_KEY': 'offline-placeholder'}):
+                    model = VisionModel(self.s)
+                with patch('ck3mcp.model.httpx.Client', side_effect=lambda **kwargs: client(
+                    transport=httpx.MockTransport(respond), **kwargs
+                )):
+                    self.assertEqual(model.ask('Return a JSON decision.', [observation]), {'decision': 'stop'})
+
+                request = requests[-1]
+                self.assertEqual(str(request.url), url + '/chat/completions')
+                self.assertEqual(request.headers['Authorization'], 'Bearer offline-placeholder')
+                payload = json.loads(request.content)
+                self.assertEqual(payload['model'], model_id)
+                self.assertEqual(payload['response_format'], {'type': 'json_object'})
+                self.assertEqual(payload[limit_key], 321)
+                self.assertEqual({'max_tokens', 'max_completion_tokens'} & payload.keys(), {limit_key})
+                self.assertEqual(payload.get('thinking'), thinking)
+                image_url = payload['messages'][1]['content'][-1]['image_url']['url']
+                self.assertTrue(image_url.startswith('data:image/png;base64,'))
+        self.assertEqual((self.s.calls, self.s.tokens, self.s.leases), (2, 84, {}))
 
     def run_scenario(self, replan=False, final='success', interrupt=False):
         s = self.s

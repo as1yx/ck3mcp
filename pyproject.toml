@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ck3mcp"
-version = "0.4.4"
+version = "0.4.5"
 description = "CK3MCP: Windows visual AI agent and MCP server for Crusader Kings III (CK3)"
 readme = "README.md"
 keywords = ["ck3mcp", "ck3", "crusader-kings-iii", "mcp", "ai-agent", "computer-use", "windows"]

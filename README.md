@@ -6,11 +6,11 @@
 
 **CK3MCP (`ck3mcp`) is an experimental Windows visual AI agent and local Model Context Protocol (MCP) server for Crusader Kings III (CK3).** It combines screenshots, a vision model, guarded mouse/keyboard input, and persistent action verification.
 
-Version **0.4.4** is a prototype focused on **appointing a vacant council position**. It does not yet provide full-game autonomous play.
+Version **0.4.5** is a prototype focused on **appointing a vacant council position**. It does not yet provide full-game autonomous play.
 
 ### Current status
 
-- **Passed:** dependency compatibility checks in an isolated Python 3.12.14 environment; 17 offline regression tests; real MCP stdio initialization, registration of eight tools, and rejection of unbound access.
+- **Passed:** 18 offline regression tests, including mocked DeepSeek and OpenAI requests, and the local MCP stdio smoke test.
 - **Observed in CK3 1.20.1.2:** a new non-Ironman game, paused council panel, and the Chancellor candidate list. All five council positions were occupied, so no appointment was performed.
 - **Not accepted end to end:** native game input/screenshot/F12 behavior, provider integration, and autonomous council appointment still require real-game validation. Offline Runner tests use simulated game/model components.
 
@@ -31,7 +31,7 @@ The task stages are `open_council → choose_vacancy → choose_candidate → su
 
 - Windows and Python 3.12+; the supplied installer targets Python 3.12.
 - A locally installed copy of Crusader Kings III.
-- An API model supporting image input, Chat Completions, JSON-object output, and the request parameters used in `ck3mcp/model.py`, including `max_completion_tokens`.
+- An API model supporting image input, Chat Completions, and JSON-object output. The official DeepSeek endpoint uses `max_tokens`. Other endpoints use `max_completion_tokens`.
 - A backed-up, non-Ironman single-player test save, loaded and manually paused, with a vacant council position.
 
 ### Setup and run
@@ -42,7 +42,9 @@ Clone or download this repository. In PowerShell, inside its folder:
 .\install.ps1
 ```
 
-The installer creates `.venv` and a missing `config.json`. Edit `config.json` to set your vision model ID and `base_url`. The example defaults to `https://api.openai.com/v1`; no model is selected for you.
+The installer creates `.venv` and a missing `config.json`. Edit `config.json` to set your vision model ID and `base_url`. The default example uses the OpenAI endpoint and leaves the model ID for you to fill in.
+
+For DeepSeek, copy the `model` and `base_url` values from [the DeepSeek example](config.deepseek.example.json) into your `config.json`. This selects `deepseek-flash` at `https://api.deepseek.com`. Use a DeepSeek API key for `CK3_API_KEY`. The same configuration works with the CLI and MCP server. Live DeepSeek API and CK3 gameplay validation are pending. [DeepSeek vision documentation](https://api-docs.deepseek.com/guides/vision/)
 
 The API key is read from `CK3_API_KEY`, not from the configuration file. The startup script prompts for it with hidden input if it is absent:
 
@@ -107,11 +109,11 @@ CK3MCP is an independent project and is not affiliated with or endorsed by Parad
 
 **CK3MCP（`ck3mcp`）是面向《十字军之王 III》（Crusader Kings III / CK3）的 Windows 视觉 AI Agent 与本地 MCP 服务原型。** 程序通过截图、视觉模型、鼠标键盘输入及持久化核验组成操作循环。
 
-当前版本 **0.4.4** 仅聚焦于**任命一个空缺内阁职位**，尚未实现整局自主游玩。
+当前版本 **0.4.5** 仅聚焦于**任命一个空缺内阁职位**，尚未实现整局自主游玩。
 
 ### 当前验证状态
 
-- **已通过：** Python 3.12.14 隔离环境依赖兼容性检查、17 项离线回归测试、真实 MCP stdio 初始化、8 个工具注册及未绑定访问拦截。
+- **已通过：** 18 项离线回归测试，覆盖 DeepSeek 和 OpenAI 模拟请求。本地 MCP stdio 冒烟测试也已通过。
 - **真实游戏已观察：** CK3 1.20.1.2 新建非铁人局、暂停状态、内阁面板与掌玺大臣候选列表。五个内阁职位均有任职者，因此未执行任命。
 - **尚未完成端到端验收：** 项目原生游戏输入、截图和 F12、模型服务兼容性、自主任命仍待实测。离线 Runner 测试使用模拟游戏和模型。
 
@@ -130,7 +132,7 @@ CK3MCP is an independent project and is not affiliated with or endorsed by Parad
 
 ### 安装与启动
 
-需要 Windows、Python 3.12+、本地 CK3，以及支持截图输入、Chat Completions、JSON object 和 `model.py` 请求参数（含 `max_completion_tokens`）的模型服务。安装脚本使用 Python 3.12。
+需要 Windows、Python 3.12+、本地 CK3，以及支持截图输入、Chat Completions 和 JSON object 的模型服务。DeepSeek 官方地址使用 `max_tokens`，其他地址使用 `max_completion_tokens`。安装脚本使用 Python 3.12。
 
 在项目目录的 PowerShell 中运行：
 
@@ -138,7 +140,9 @@ CK3MCP is an independent project and is not affiliated with or endorsed by Parad
 .\install.ps1
 ```
 
-脚本创建 `.venv` 和缺失的 `config.json`。编辑配置中的模型 ID 与 `base_url`；示例默认地址为 `https://api.openai.com/v1`，未替你选择实际模型。
+脚本创建 `.venv` 和缺失的 `config.json`。编辑配置中的模型 ID 与 `base_url`。默认示例使用 OpenAI 地址，模型 ID 由你填写。
+
+使用 DeepSeek 时，把[配置示例](config.deepseek.example.json)中的 `model` 和 `base_url` 填入现有 `config.json`，即使用 `deepseek-flash` 与 `https://api.deepseek.com`。将 `CK3_API_KEY` 设为 DeepSeek API 密钥。CLI 和 MCP 可使用同一份配置。真实 API 和游戏操作仍待实测。[DeepSeek 视觉文档](https://api-docs.deepseek.com/guides/vision/)
 
 密钥从本机 `CK3_API_KEY` 读取。先备份非铁人单人测试存档，载入一个有空缺内阁职位的场景并手工暂停，再运行：
 

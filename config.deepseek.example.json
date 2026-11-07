@@ -1,0 +1,5 @@
+{
+  "model": "deepseek-flash",
+  "base_url": "https://api.deepseek.com",
+  "task": "在当前存档中任命一个合适的空缺内阁职位。不要更换已有任职者。"
+}

@@ -3,11 +3,12 @@ import json
 import sys
 from pathlib import Path
 
+from . import __version__
 from .core import Config, Session
 
 
 def main():
-    parser = argparse.ArgumentParser(description="CK3 AI Agent v0.4.4 — 未测试修订版")
+    parser = argparse.ArgumentParser(description=f"CK3 AI Agent v{__version__}")
     sub = parser.add_subparsers(dest="command", required=True)
     run = sub.add_parser("run", help="显式启动游戏操作")
     run.add_argument("--config", default="config.json")
@@ -49,7 +50,7 @@ def main():
     s = Session(Config.load(args.config))
     game = None
     try:
-        s.log("created", version="0.4.4", validation="untested")
+        s.log("created", version=__version__, validation="live_unverified")
         print(f"运行目录：{s.path}\n{args.start_delay} 秒后绑定前台 CK3；F12 紧急停止。", flush=True)
         s.wait(args.start_delay)
         s.ensure_reconciled()

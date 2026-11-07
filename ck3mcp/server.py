@@ -5,6 +5,7 @@ from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP, Image
 
+from . import __version__
 from .core import Config, Session, Replan
 from .model import VisionModel
 from .tasks import CouncilTask, ProgressTracker
@@ -42,7 +43,7 @@ def main():
                          progress=ProgressTracker(), final_lease=None, submission=None)
             s.status = "running"
             try:
-                s.log("bound", version="0.4.4", validation="untested")
+                s.log("bound", version=__version__, validation="live_unverified")
             except BaseException:
                 s.stop("bind_log_failed")
                 s.cleanup(game.close, s.journal.close)

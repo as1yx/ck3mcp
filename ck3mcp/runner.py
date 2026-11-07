@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 
+from . import __version__
 from .core import Stopped, Replan
 from .model import VisionModel
 from .tasks import CouncilTask, ProgressTracker, TASK_INSTRUCTIONS
@@ -138,5 +139,5 @@ class Runner:
                 self.s.cleanup(lambda: self.s.log("unresolved_action", **pending))
             report = {**self.s.snapshot(), "steps": steps, "task": self.task.snapshot(), "history": self.history,
                       "submission": submission,
-                      "unresolved": self.s.journal.unresolved(), "validation": "v0.4.4 source only; untested; visual claims"}
+                      "unresolved": self.s.journal.unresolved(), "validation": f"v{__version__}; live unverified; visual claims"}
             (self.s.path / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
